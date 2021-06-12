@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_tutorial/cubit/counter_cubit.dart';
+import 'package:flutter_bloc_tutorial/logic/cubit/counter_cubit.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+class SecondScreen extends StatefulWidget {
+  SecondScreen({Key key, this.title, this.color}) : super(key: key);
 
   final String title;
+  final Color color;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _SecondScreenState createState() => _SecondScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,20 +55,32 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FloatingActionButton(
+                  heroTag: "decrement",
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                   },
-                  tooltip: "decrease",
+                  tooltip: "decrement",
                   child: Icon(Icons.remove),
                 ),
                 FloatingActionButton(
+                  heroTag: "increment",
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).increment();
                   },
-                  tooltip: "increase",
+                  tooltip: "increment",
                   child: Icon(Icons.add),
                 )
               ],
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/third');
+              },
+              color: widget.color,
+              child: Text("Go to 3rd Screen"),
             )
           ],
         ),
